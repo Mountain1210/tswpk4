@@ -1,0 +1,47 @@
+1、mkdir demo
+2、cnpm i -D webpack webpack-cli
+3、cnpm i -D typescript ts-loader
+4、npm init -y
+5、tsc --init
+6、cnpm i -D webpack-dev-server
+7、cnpm i -D html-webpack-plugin clean-webpack-plugin
+8、新建 webpack.config.js文件 配置如下
+const path=require('path');
+const HtmlWebpackPlugin=require('html-webpack-plugin');
+const {CleanWebpackPlugin}=require('clean-webpack-plugin');
+
+module.exports={
+    //model:'development',
+    entry:'./src/index.ts',
+    output:{
+        filename:'bundle.js',
+        path:path.resolve(__dirname,'dist')
+    },
+    module:{
+        rules:[
+            {
+                test:/\.tsx?$/,
+                use:'ts-loader',
+                exclude:/node_modules/
+            }
+        ]
+    },
+    resolve:{
+        //引入模块的时候可以少写后缀
+        extensions:['.tsx','.ts','.js']
+    },
+    devtool: 'inline-source-map',
+    devServer:{
+        contentBase:path.join(__dirname, "dist"),
+    },
+    plugins:[
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title:'typescript学习'
+        })
+    ]
+}
+
+9、package.json文件中增加运行脚本
+"dev":"webpack-dev-server --open",
+"build":"webpack"
