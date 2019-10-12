@@ -5,8 +5,22 @@
  * @version $Id$
  */
 
-var a:string = "Hello typescript,终于见面了"
+
+var a:string = "我们见面了"
 console.log(a)
 let element=document.createElement('div')
 element.innerHTML=a
-document.body.appendChild(element)
+document.body.appendChild(element);
+
+//添加类
+require("./arr");
+require("./interface");
+require("./clu");
+
+
+
+
+
+
+
+

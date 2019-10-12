@@ -39,7 +39,7 @@ module.exports = {
     plugins:[
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title:'typescript学习'
+            title:'AI typescript学习'
         })
     ]
 }
