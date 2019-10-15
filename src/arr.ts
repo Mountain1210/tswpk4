@@ -1,3 +1,5 @@
+console.log($)
+
 /******************************************/
 enum Color {Red = 1, Green, Blue}
 let colorName: string = Color[2];
@@ -16,6 +18,7 @@ console.log(list[1])
 
 
 function sumMatrix(matrix: number[][]) {
+    // console.log($)
     let sum = 0;
     for (let i = 0; i < matrix.length; i++) {
         var currentRow = matrix[i];

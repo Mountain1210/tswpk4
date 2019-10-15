@@ -5,19 +5,28 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"webpack-dev-server --open",
+    "dev": "webpack-dev-server --open",
     "build": "webpack"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jquery": "^3.3.31",
     "clean-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.4.1",
+    "jquery-ts": "^2.1.1",
+    "jsdom": "^15.2.0",
     "ts-loader": "^6.2.0",
     "typescript": "^3.6.3",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
+  },
+  "dependencies": {
+    "expose-loader": "^0.7.5",
+    "jquery-ts": "^2.1.1",
+    "jsdom": "^15.2.0"
   }
 }
