@@ -217,3 +217,24 @@ console.log(greeter2.greet());
 
 
 
+// var Greeter3 = (function () {
+// 	function Greeter3() {
+// 	}
+// 	Greeter3.prototype.greet = function () {
+// 	if (this.greeting) {
+// 	return "Hello, " + this.greeting;
+// 	}
+// 	else {
+// 	return Greeter.standardGreeting;
+// 	}
+// 	};
+// 	Greeter3.standardGreeting = "Hello, there";
+// 	return Greeter;
+// })();
+// var greeter1;
+// greeter3 = new Greeter3();
+// alert(greeter3.greet());
+// var greeterMaker = Greeter3;
+// greeterMaker.standardGreeting = "Hey there!";
+// var greeter2 = new greeterMaker();
+// alert(greeter2.greet());

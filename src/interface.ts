@@ -18,7 +18,7 @@ function createSquare(config:SquareConfig):{color:string; area:number}{
 	return newSquare;
 }
 
-let mySquare=createSquare({color:'black',width:50})
+let mySquare=createSquare({color:'black'})
 
 console.log(mySquare)
 

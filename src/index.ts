@@ -5,10 +5,25 @@
  * @version $Id$
  */
 
+
+
+// Relative Import以/, ./或../为开头. 如
+// import Entry from "./components/Entry";
+// import { DefaultHeaders } from "../constants/http";
+// import "/mod";
+
+
+// 所有其他的都是为non-relative import, 如:
+// import * as $ from "jquery";
+// import { Component } from "@angular/core";
+
+
+
+
 // ///<reference path="./jquery.d.ts" />
-require("jquery-ts");
-console.log($);
-var a:string = "我们见面了"
+import "jquery-ts"
+
+var a:string = "智能测试 今天表现为7"
 console.log(a);
 // let element=document.createElement('div')
 
@@ -17,14 +32,106 @@ console.log(a);
 
 $('#vid').html(a)
 //添加类
-require("./arr");
-require("./interface");
-require("./clu");
-require("./fanxing");
-require("./typejianrong");
+// import * from "./arr";
+ 
+import "./arr" 
+// require("./arr");
+import "./interface";
+import "./clu";
+import "./fanxing";
+import "./typejianrong";
+
+import "./test-2"
 
 // $('#vid').html(a);
 
 
+// function logClass(target:any){
+// 	//保存原构造函数的引用
+// 	var original=target;
+
+// 	//用来生成类的实例的工具方法
+// 	function construct(constructor,args){
+// 		var c:any=function(){
+// 			return constructor.apply(this,args)
+// 		}
+
+// 		c.prototype=constructor.prototype;
+// 		return new c();
+// 	}
+
+// 	//新的构造函数行为
+
+// 	var f:any=function(...args){
+// 		console.log("New"+original.name);
+// 		return construct(original,args);
+// 	}
+
+// 	//复制原型，使用instanceof操作能正常使用
+// 	f.prototype=original.prototype;
+
+// 	//返回新的构造函数（将会覆盖原构造函数）
+
+// 	return f;
+// }
 
 
+// @logClass
+// class Ps{
+// 	public name:string;
+// 	public surname:string;
+
+// 	constructor(name:string,surname:string){
+// 		this.name=name;
+// 		this.surname=surname;
+// 	}
+
+// 	public saySomething(something:string):string{
+// 		return this.name+" "+this.surname+" says:"+something;
+// 	}
+// }
+
+
+// function helloWord(target: any) {
+//     console.log('hello Word!11111111111111111111');
+// }
+
+// @helloWord
+// class HelloWordClass {
+
+// }
+function addAge(args: number) {
+    return function (target: Function) {
+        target.prototype.age = args;
+    };
+}
+function method(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+   console.log(target);
+   console.log("prop " + propertyKey);
+   console.log(descriptor)
+   console.log("desc " + JSON.stringify(descriptor) + "\n\n");
+};
+
+@addAge(18)
+class Hello {
+    name: string="";
+    age: number=0;
+    constructor() {
+        console.log('hello');
+        this.name = 'yugo';
+    }
+     @method
+      hello(){
+        return 'instance method';
+      }
+    ​
+      @method
+      static shello(){
+        return 'static method';
+      }
+}
+
+console.log(Hello.prototype.age);//18
+let hello = new Hello();
+
+console.log(hello.age);//18
