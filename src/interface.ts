@@ -1,6 +1,6 @@
 // 接口部分
 
-
+/*可选属性*/
 interface SquareConfig {
 	color?:string;
 	width?:number;

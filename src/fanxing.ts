@@ -7,7 +7,7 @@
  *     <T>(arg: T): T; //这是一个需要实现方法
  *   }
 
- *   function identity<T>(arg: T): T { //尖括号的T是指indetity的类型，而后面冒号的T是指返回值是T
+ *   function identity<T>(arg: T): T { //尖括号的T是指传入值的类型，而后面冒号的T是指返回值是T
  *     return arg;
  *   }
 

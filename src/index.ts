@@ -121,12 +121,12 @@ class Hello {
         this.name = 'yugo';
     }
      @method
-      hello(){
+      hello(){   // 这个是实例
         return 'instance method';
       }
     ​
       @method
-      static shello(){
+      static shello(){ //当前Hello的方法
         return 'static method';
       }
 }
@@ -135,3 +135,45 @@ console.log(Hello.prototype.age);//18
 let hello = new Hello();
 
 console.log(hello.age);//18
+
+interface Named {
+named: string;
+}
+var x: Named;
+//判断这个 y 的类型是{ name: string; location: string; }
+var y = { named: 'Alice', name: 'Alice', location: 'Seattle' };
+x = y;
+console.log(x)
+
+
+var items = [1, 2, 3];
+
+items.forEach((item,index,array)=>console.log(item+'==='+index+'---'+array))
+
+
+//养蜂人
+// class BeeKeeper {
+// hasMask: boolean;
+// }
+// //动物管理人.
+// class ZooKeeper {
+// nametag: string;
+// }
+// //动物
+// class Animals {
+// numLegs: number;
+// }
+// //蜜蜂
+// class Bee extends Animals {
+// keeper: BeeKeeper;
+// }
+// //狮子
+// class Lion extends Animals {
+// keeper: ZooKeeper;
+// }
+// //管理人.
+// function findKeeper<A extends Animals, K> (a: {new(): A; prototype: {keeper: K}}): K {
+// return a.prototype.keeper;
+// }
+// //findKeeper(Lion).nametag; // 检查类型!
+// console.log(findKeeper(Lion).nametag)
