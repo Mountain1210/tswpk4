@@ -1,0 +1,344 @@
+1. apt介绍
+apt 是Advanced Packaging Tool的简称，是Ubuntu下的包安装管理工具，大部分的软件安装/更新/卸载都是利用apt命令来实现的。
+
+我们可以直接在终端输入apt即可以查阅命令帮助信息：
+
+ 
+
+2. apt基本命令：
+安装软件： sudo apt install [software] ；
+卸载软件： sudo apt remove [software] ；
+更新可用软件包： sudo apt update ；
+更新已安装软件包： sudo apt upgrade 。
+ 
+
+3. 安装常用的工具
+ 1）python
+
+复制代码
+sudo apt install ipython
+
+sudo apt install ipython3
+
+sudo apt install python-pip
+
+sudo apt install python3-pip
+复制代码
+ 
+
+2）C++
+
+sudo apt install cmake
+
+sudo apt install qtcreator
+ 
+
+3）ruby
+
+sudo apt install ruby
+ 
+
+4）安装SSH服务器
+
+sudo apt install openssh-server
+安装之后才可以在其他系统中通过ssh工具远程登录。
+
+ 
+
+4. apt和apt-get
+apt和apt-get都是ubuntu下最常用的安装软件命令，早期使用apt-get，从Ubuntu16开始官方建议使用apt，这两个命令的使用方式非常类似。
+
+ 
+
+5. deb 安装格式
+deb是debian linux的安装格式，在ubuntu中同样可以使用 ，要安装deb安装包需要使用dpkg这个终端命令
+
+sudo dpkg -i(install) <package.deb>
+
+
+//==========================================================================================
+==========================================================================================
+
+
+apt配置说明
+
+想使用apt命令来安装一些软件，可以报“E:无法定位软件包”
+
+排除网络未连接的问题，那就是网络质量的问题！！！
+
+究其原因， ubuntu，我们在使用apt新装软件的时候，会使用官方的网站去下载软件，但是会因为国内的转接点太多，而导致下载的速度非常慢 ，我们可以通过换成一些中间的节点来进行下载，比如阿里源，中科大源，清华源等等，这样的网站，他们会定时和官方的源进行同步和更新，而我们直接同步他们，速度就会比直接同步官方的源快很多，这样能够大大增加我们的下载软件的速度。
+
+更换apt源：（先备份一下）
+
+cd /etc/apt/
+
+sudo cp sources.list sources.list.bb
+
+sudo vi sources.list
+
+删除其中所有的内容，替换成国内的源内容，我推荐阿里源
+
+阿里云Ubuntu 18.04源
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+ 
+
+然后执行
+
+sudo apt update
+
+sudo apt upgrade
+
+
+
+
+==========================================================================================
+==========================================================================================
+
+vi 的使用说明
+
+1. 选定文本块。使用v进入可视模式，移动光标键选定内容。 
+
+2.复制的命令是y，即yank（提起） ，常用的命令如下： 
+    y      在使用v模式选定了某一块的时候，复制选定块到缓冲区用； 
+    yy    复制整行（nyy或者yny ，复制n行，n为数字）； 
+    y^   复制当前到行头的内容； 
+    y$    复制当前到行尾的内容； 
+    yw   复制一个word （nyw或者ynw，复制n个word，n为数字）； 
+    yG    复制至档尾（nyG或者ynG，复制到第n行，例如1yG或者y1G，复制到档尾）  
+    
+3. 剪切的命令是d，即delete，d与y命令基本类似，所以两个命令用法一样，包括含有数字的用法.  
+    d      剪切选定块到缓冲区； 
+    dd    剪切整行 
+    d^    剪切至行首 
+    d$     剪切至行尾 
+    dw    剪切一个word 
+    dG     剪切至档尾  
+    
+4. 粘贴的命令式p，即put（放下） 
+    p      小写p代表贴至游标后（下），因为游标是在具体字符的位置上，所以实际是在该字符的后面 
+    P      大写P代表贴至游标前（上） 
+    整行的复制粘贴在游标的上（下）一行，非整行的复制则是粘贴在游标的前（后）
+
+注： 
+     在正则表达式中，^表示匹配字符串的开始位置，$表示匹配字符串的结束位置。 
+     命令前面加数字表示重复的次数，加字母表示使用的缓冲区名称。使用英文句号"."可以重复上一个命令。 
+     在复制粘贴时，另一组常用的命令是u（撤销操作），U（撤销某一行最近所有修改），Ctrl+R（重做），这些功能主要是vim中的，vi中略有差别
+
+选自http://blog.csdn.net/bluesky_leon/article/details/4069194
+
+如果只是想使用系统粘贴板的话直接在输入模式按Shift+Inset就可以了，下面讲一下vim的粘贴板的基础知识，有兴趣的可以看看，应该会有所收获的。
+vim帮助文档里与粘贴板有关的内容如下：
+
+vim有12个粘贴板，分别是0、1、2、...、9、a、“、＋；用:reg命令可以查看各个粘贴板里的内容。在vim中简单用y只是复制到“（双引号)粘贴板里，同样用p粘贴的也是这个粘贴板里的内容；
+ 
+
+要将vim的内容复制到某个粘贴板，需要退出编辑模式，进入正常模式后，选择要复制的内容，然后按"Ny完成复制，其中N为粘贴板号(注意是按一下双引号然后按粘贴板号最后按y)，例如要把内容复制到粘贴板a，选中内容后按"ay就可以了，有两点需要说明一下：
+“号粘贴板（临时粘贴板）比较特殊，直接按y就复制到这个粘贴板中了，直接按p就粘贴这个粘贴板中的内容；
++号粘贴板是系统粘贴板，用"+y将内容复制到该粘贴板后可以使用Ctrl＋V将其粘贴到其他文档（如firefox、gedit）中，同理，要把在其他地方用Ctrl＋C或右键复制的内容复制到vim中，需要在正常模式下按"+p；
+ 
+
+要将vim某个粘贴板里的内容粘贴进来，需要退出编辑模式，在正常模式按"Np，其中N为粘贴板号，如上所述，可以按"5p将5号粘贴板里的内容粘贴进来，也可以按"+p将系统全局粘贴板里的内容粘贴进来。
+注意：在我这里，只有vim.gtk或vim.gnome才能使用系统全局粘贴板，默认的vim.basic看不到+号寄存器
+
+
+
+==========================================================================================
+==========================================================================================
+
+Ubuntu-查看ubuntu系统的版本信息
+
+
+进入Ubuntu系统，点击左侧图标栏中的黑框，打开终端
+Ubuntu-查看ubuntu系统的版本信息
+左侧没有终端图标的情况，可以搜索按钮(图中左侧第一个)，输入termial，打开终端
+Ubuntu-查看ubuntu系统的版本信息
+桌面终端也没有搜索图标的情况，可以使用快捷键打开终端
+快捷键(Ctrl+Alt+t)
+Ubuntu-查看ubuntu系统的版本信息
+输入命令
+cat /proc/version
+显示如下
+Linux version 4.10.0-28-generic (buildd@lgw01-12)         linux内核版本号
+gcc version 5.4.0                                                                 gcc编译器版本号
+Ubuntu 5.4.0-6ubuntu1                                                      Ubuntu版本号
+Ubuntu-查看ubuntu系统的版本信息
+输入命令
+uname -a
+显示linux的内核版本和系统是多少位的：X86_64代表系统是64位的。
+Ubuntu-查看ubuntu系统的版本信息
+输入命令
+lsb_release -a
+显示如下
+Distributor ID: Ubuntu                           //类别是ubuntu
+Description:  Ubuntu 16.04.3 LTS          //16年3月发布的稳定版本，LTS是Long Term Support：长时间支持版本，支持周期长达三至五年
+Release:    16.04                                    //发行日期或者是发行版本号
+Codename:   xenial                               //ubuntu的代号名称
+
+
+
+==========================================================================================
+==========================================================================================
+
+
+
+/bin 二进制可执行命令
+
+/dev 设备特殊文件
+
+/etc 系统管理和配置文件
+
+/etc/rc.d 启动的配置文件和脚本
+
+/home 用户主目录的基点，比如用户user的主目录就是/home/user，可以用~user表示
+
+/lib 标准程序设计库，又叫动态链接共享库，作用类似windows里的.dll文件
+
+/sbin 系统管理命令，这里存放的是系统管理员使用的管理程序
+
+/tmp 公用的临时文件存储点
+
+/root 系统管理员的主目录（特权阶级）
+
+/mnt 系统提供这个目录是让用户临时挂载其他的文件系统。
+
+/lost+found 这个目录平时是空的，系统非正常关机而留下“无家可归”的文件（windows下叫什么.chk）就在这里 /proc 虚拟的目录，是系统内存的映射。可直接访问这个目录来获取系统信息。
+
+/var 某些大文件的溢出区，比方说各种服务的日志文件
+
+/run 里面的东西是系统运行时需要的, 不能随便删除. 但是重启的时候应该抛弃. 下次系统运行时重新生成
+
+/usr 最庞大的目录，要用到的应用程序和文件几乎都在这个目录。其中包含：
+
+　　/usr/x11r6 存放x window的目录
+
+　　/usr/bin 众多的应用程序
+
+　　/usr/sbin 超级用户的一些管理程序
+
+　　/usr/doc linux文档
+
+  　 /usr/include linux下开发和编译应用程序所需要的头文件 
+
+　　/usr/lib 常用的动态链接库和软件包的配置文件
+
+　　/usr/man 帮助文档
+
+　   /usr/src 源代码，linux内核的源代码就放在/usr/src/linux里 
+
+　　/usr/local/bin 本地增加的命令
+
+　　/usr/local/lib 本地增加的库根文件系统 通常情况下，根文件系统所占空间一般应该比较小，因为其中的绝大部分文件都不需要经常改动，而且包括严格的文件和一个小的不经常改变的文件系统不容易损坏。 除了可能的一个叫/ v m l i n u z标准的系统引导映像之外，根目录一般不含任何文件。所有其他文件在根文件系统的子目录中。
+
+
+
+
+==========================================================================================
+==========================================================================================
+
+
+
+当你想要压缩一大堆文件时，你得先将这一大堆文件先打成一个包（tar命令），然后再用压缩程序进行压缩（gzip bzip2命令）
+
+tar常见命令参数
+
+必要参数有如下：
+-A 新增压缩文件到已存在的压缩
+-c 建立新的压缩文件
+-d 记录文件的差别
+-r 添加文件到已经压缩的文件
+-u 添加改变了和现有的文件到已经存在的压缩文件
+-x 从压缩的文件中提取文件
+-t 显示压缩文件的内容
+-z 支持gzip解压文件
+-j 支持bzip2解压文件
+-Z 支持compress解压文件
+-v 显示操作过程
+-l 文件系统边界设置
+-k 保留原有文件不覆盖
+-m 保留文件不被覆盖
+-W 确认压缩文件的正确性
+
+
+
+常用的命令展示
+压缩
+tar cf hhh.tar hhh         # 仅仅打包
+tar jcf hhh.tar.bz2 hhh    # 压缩打包
+tar czf hhh.tar.gz hhh     # 压缩打包
+zip hhh.zip.gz hhh         # 压缩打包
+gzip messages              # 仅压缩文件【默认删除源文件】
+
+
+
+查看
+tar ztvf hhh.tar.gz   
+tar jtvf hhh.tar.bz2   
+tar tvf hhh.tar
+
+
+解压
+tar xf hhh.tar hhh
+tar jxf hhh.tar.bz2 hhh
+tar xzf hhh.tar.gz hhh
+unzip hhh.zip hhh
+---------------------->
+常见解压/压缩命令
+tar 
+解包：tar xvf FileName.tar
+打包：tar cvf FileName.tar DirName
+（注：tar是打包，不是压缩！）
+
+.gz
+解压1：gunzip FileName.gz
+解压2：gzip -d FileName.gz
+压缩：gzip FileName
+.tar.gz 和 .tgz
+解压：tar zxvf FileName.tar.gz
+压缩：tar zcvf FileName.tar.gz DirName
+.bz2
+解压1：bzip2 -d FileName.bz2
+解压2：bunzip2 FileName.bz2
+压缩： bzip2 -z FileName
+.tar.bz2
+解压：tar jxvf FileName.tar.bz2
+压缩：tar jcvf FileName.tar.bz2 DirName
+.bz
+解压1：bzip2 -d FileName.bz
+解压2：bunzip2 FileName.bz
+压缩：未知
+.tar.bz
+解压：tar jxvf FileName.tar.bz
+压缩：未知
+.Z
+解压：uncompress FileName.Z
+压缩：compress FileName
+.tar.Z
+解压：tar Zxvf FileName.tar.Z
+压缩：tar Zcvf FileName.tar.Z DirName
+.zip
+解压：unzip FileName.zip
+压缩：zip FileName.zip DirName
+.rar
+解压：rar x FileName.rar
+压缩：rar a FileName.rar DirName 
+————————————————

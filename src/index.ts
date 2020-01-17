@@ -26,7 +26,8 @@
 // ///<reference path="./jquery.d.ts" />
 import "jquery-ts"
 
-var a:string = "智能测试 今天表现为7"
+let mrnum=Math.random(0,9);
+var a:string = "智能测试 今天表现为"+mrnum;
 console.log(a);
 // let element=document.createElement('div')
 
