@@ -17,20 +17,46 @@
 // import * as $ from "jquery";
 // import { Component } from "@angular/core";
 
-//ceshi linux
-
-
 
 
 
 // ///<reference path="./jquery.d.ts" />
 import "jquery-ts"
-
-let mrnum=Math.random(0,9);
-var a:string = "智能测试 今天表现为"+mrnum;
+import zip = require("./ZipCodeValidator");
+var a:string = "智能测试 今天表现为7"
 console.log(a);
 // let element=document.createElement('div')
 
+let strings = ["Hello", "98052", "101"];
+
+// Validators to use
+let validator = new zip();
+
+strings.forEach(s => {
+  console.log(`"${ s }" - ${ validator.isAcceptable(s) ? "matches" : "does not match" }`);
+});
+import { StringValidator } from "./interface/Validation";
+import { ZipCodeValidator } from "./cluss/ZipCodeValidator";
+import { LettersOnlyValidator } from "./cluss/LettersOnlyValidator";
+let strings2 = ["Hello", "98052", "101"];
+
+// Validators to use
+let validators: { [s: string]: StringValidator; } = {};
+validators["ZIP code"] = new ZipCodeValidator();
+validators["Letters only"] = new LettersOnlyValidator();
+
+// Show whether each string passed each validator
+strings2.forEach(s => {
+    for (let name in validators) {
+        console.log(`"${ s }" - ${ validators[name].isAcceptable(s) ? "matches" : "does not match" } ${ name }`);
+    }
+});
+
+import tdd from "./cluss/MyClass";
+import f from "./cluss/MyFunc";
+let xx = new tdd('dd');
+console.log(xx.greet())
+console.log(f());
 
 
 
