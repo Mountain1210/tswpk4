@@ -38,6 +38,14 @@ strings.forEach(s => {
 import { StringValidator } from "./interface/Validation";
 import { ZipCodeValidator } from "./cluss/ZipCodeValidator";
 import { LettersOnlyValidator } from "./cluss/LettersOnlyValidator";
+// import { Calculator, test } from "./cluss/Calculator";
+import { Calculator2, test } from "./cluss/ProgrammerCalculator";
+
+let cd = new Calculator2(2);
+test(cd, "001+010="); // prints 3
+
+// let c = new Calculator();
+// test(c, "1+2*33/11="); // prints 9
 let strings2 = ["Hello", "98052", "101"];
 
 // Validators to use
@@ -130,15 +138,22 @@ import "./test-2"
 // class HelloWordClass {
 
 // }
+
+/*装饰器部分*/
+console.log('装饰器部分开始');
 function addAge(args: number) {
     return function (target: Function) {
         target.prototype.age = args;
     };
 }
 function method(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  console.log('==================target:=================');
    console.log(target);
-   console.log("prop " + propertyKey);
+   console.log('==================prop:=================');
+   console.log("prop:" + propertyKey);
+   console.log('==================descriptor:=================');
    console.log(descriptor)
+   console.log('==================desc=================');
    console.log("desc " + JSON.stringify(descriptor) + "\n\n");
 };
 
@@ -165,6 +180,105 @@ console.log(Hello.prototype.age);//18
 let hello = new Hello();
 
 console.log(hello.age);//18
+
+
+
+
+function log(target: any, propertyKey: string) {
+  console.log(target)
+  console.log(propertyKey)
+  console.log(target[propertyKey])
+    let value = target[propertyKey];
+    // 用来替换的getter
+    const getter = function () {
+        console.log(`Getter for ${propertyKey} returned ${value}`);
+        return value;
+    }
+    // 用来替换的setter
+    const setter = function (newVal) {
+        console.log(`Set ${propertyKey} to ${newVal}`);
+        value = newVal;
+    };
+    console.log(getter)
+    console.log(setter)
+    // 替换属性，先删除原先的属性，再重新定义属性
+    if (delete target[propertyKey]) {
+        Object.defineProperty(target, propertyKey, {
+            get: getter,
+            set: setter,
+            enumerable: true,
+            configurable: true
+        });
+    }
+}
+
+
+
+class Calculator {
+    @log
+    public num: number;
+    constructor(subnum) {
+      this.num=subnum;
+    }
+    square() {
+        return this.num * this.num;
+    }
+}
+let cal = new Calculator(2);
+console.log(cal.num)
+// cal.num = 2;
+console.log(cal.square());
+
+
+
+
+
+
+
+const parseConf = [];
+class Modal {
+    @parseFunc
+    public addOne(@parse('number') num) {
+        console.log('num:', num);
+        return num + 1;
+    }
+}
+
+// 在函数调用前执行格式化操作
+function parseFunc(target, name, descriptor) {
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+        for (let index = 0; index < parseConf.length; index++) {
+            const type = parseConf[index];
+            console.log(type);
+            switch (type) {
+                case 'number':
+                    args[index] = Number(args[index]);
+                    break;
+                case 'string':
+                    args[index] = String(args[index]);
+                    break;
+                case 'boolean':
+                    args[index] = String(args[index]) === 'true';
+                    break;
+            }
+            return originalMethod.apply(this, args);
+        }
+    };
+    return descriptor;
+}
+
+// 向全局对象中添加对应的格式化信息
+function parse(type) {
+    return function (target, name, index) {
+        target[index] = type;
+        console.log('parseConf[index]:', type);
+    };
+}
+let modal = new Modal();
+console.log(modal.addOne('10')); // 11
+console.log('装饰器部分结束');
+
 
 interface Named {
 named: string;

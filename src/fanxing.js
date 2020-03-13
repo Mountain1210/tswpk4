@@ -2,6 +2,19 @@
  * ts中泛型
  *    泛型就是在编译期间不确定方法的类型(广泛之意思)，在方法调用时，由程序员指定泛型具体指向什么类型
  */
+/**
+*  interface GenericIdentityFn {
+*     <T>(arg: T): T; //这是一个需要实现方法
+*   }
+
+*   function identity<T>(arg: T): T { //尖括号的T是指传入值的类型，而后面冒号的T是指返回值是T
+*     return arg;
+*   }
+
+*   let myIdentity: GenericIdentityFn = identity;
+*
+*
+*/
 //1 泛型函数
 /**
  * 获取数组中最小值 （数字）
@@ -55,16 +68,34 @@ function getMin(arr) {
 }
 console.log(getMin([1, 3, 5, 7, 8]));
 console.log(getMin(["tom", "jerry", "jack", "sunny"]));
-/**
- *  interface GenericIdentityFn {
- *     <T>(arg: T): T; //这是一个需要实现方法
- *   }
-
- *   function identity<T>(arg: T): T { //尖括号的T是指indetity的类型，而后面冒号的T是指返回值是T
-      return arg;
+//2 泛型类
+var GetMin = /** @class */ (function () {
+    function GetMin() {
+        this.arr = [];
     }
-
-    let myIdentity: GenericIdentityFn = identity;
- *
- *
- */
+    GetMin.prototype.add = function (ele) {
+        this.arr.push(ele);
+    };
+    GetMin.prototype.min = function () {
+        var min = this.arr[0];
+        this.arr.forEach(function (value) {
+            if (value < min) {
+                min = value;
+            }
+        });
+        return min;
+    };
+    return GetMin;
+}());
+var gm1 = new GetMin();
+gm1.add(5);
+gm1.add(3);
+gm1.add(2);
+gm1.add(9);
+console.log(gm1.min());
+var gm2 = new GetMin();
+gm2.add("tom");
+gm2.add("jerry");
+gm2.add("jack");
+gm2.add("sunny");
+console.log(gm2.min());
