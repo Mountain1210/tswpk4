@@ -235,7 +235,7 @@ console.log(cal.square());
 
 
 
-const parseConf = [];
+const parseConf:any = [];
 class Modal {
     @parseFunc
     public addOne(@parse('number') num) {
@@ -271,7 +271,7 @@ function parseFunc(target, name, descriptor) {
 // 向全局对象中添加对应的格式化信息
 function parse(type) {
     return function (target, name, index) {
-        target[index] = type;
+        parseConf[index] = type;
         console.log('parseConf[index]:', type);
     };
 }
