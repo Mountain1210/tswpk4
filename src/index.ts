@@ -143,6 +143,7 @@ import "./test-2"
 console.log('装饰器部分开始');
 function addAge(args: number) {
     return function (target: Function) {
+        console.log(target)
         target.prototype.age = args;
     };
 }
@@ -305,6 +306,16 @@ function configurable(value: boolean) {
     };
 }
 
+
+function helloWord(target: any) {
+    console.log(target)
+    console.log('hello Word!');
+}
+
+@helloWord
+class HelloWordClass {
+
+}
 
 
 console.log('装饰器部分结束');
